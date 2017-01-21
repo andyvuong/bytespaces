@@ -5,6 +5,7 @@ var Webpage = require('../models/webpage');
 module.exports = function(router) {
 
   var commentRoute = router.route('/comment');
+  var trendingRoute = router.route('/trending');
   var socialLikeRoute = router.route('/social/like');
 
   commentRoute.post(function(req, res) {
@@ -48,6 +49,7 @@ module.exports = function(router) {
     });
   });
 
+  // For each webpage
   commentRoute.get(function(req,res){
     var query = req.query;
     Comment.find({ url: query.url }, function(err, Comments){
@@ -56,6 +58,15 @@ module.exports = function(router) {
     });
   });
 
+  // For Dashbaord
+  trendingRoute.get(function(req,res){
+    Webpage.find({ commentCount: { $gt: 5} }).sort('date').limit(25).exec(function(err, pages){
+      if (err) return handleError(err);
+      else return res.status(201).json({ "message": 'Query Trending', "data": pages});       
+    });
+  });
+
+  // Liking Comment
   socialLikeRoute.post(function(req, res) {
     var body = req.body;
 

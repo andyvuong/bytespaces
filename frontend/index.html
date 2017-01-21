@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Vue</title>
+  <title>Bytespaces</title>
   <!-- CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <link rel="stylesheet" href="public/styles.css">
@@ -25,7 +25,7 @@
   </nav>
 
   <!-- main body of our application -->
-  <div class="container" id="events">
+  <div class="container" id="WebpageTrends">
     <div class="col-sm-3 col-sm-offset-1 col-sm-push-8">
       <div class="card hovercard">
         <div class="cardheader">
@@ -61,26 +61,26 @@
       </div>
     </div>
     <div class="col-sm-8 col-sm-pull-4">
-      <div class="span8">
-        <h1>Article name first</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dictum ex eget porttitor sollicitudin. Morbi cursus tempor placerat. Pellentesque suscipit tortor in orci pretium, ac facilisis ex pretium. Fusce hendrerit orci diam, vitae tristique quam porttitor eu. Donec ligula orci, ultricies in sagittis non, porta sed lorem. Aenean interdum posuere mattis. Curabitur dignissim dictum quam, vitae malesuada velit tristique a. </p>
+      <div class="trending" v-for="Webpage in Webpages">
+        <div class="text-center">
+          <div class="row">
+            <div class="col-sm-9">
+              <h3 class="pull-left">{{Webpage.title}} <small>({{Webpage.commentCount}} comments)</small></h3>
+            </div>
+            <div class="col-sm-3">
+              <h4 class="pull-right">
+              <small><em>{{Webpage.date}}</em></small>
+              </h4>
+            </div>
+          </div>
+        </div>
+        <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dictum ex eget porttitor sollicitudin. Morbi cursus tempor placerat. Pellentesque suscipit tortor in orci pretium, ac facilisis ex pretium. Fusce hendrerit orci diam, vitae tristique quam porttitor eu. Donec ligula orci, ultricies in sagittis non, porta sed lorem. Aenean interdum posuere mattis. Curabitur dignissim dictum quam, vitae malesuada velit tristique a. </p> -->
         <div>
-            <div class="more label"><a href="#">More</a></div> 
-            <div class="tags">
-                <span class="label label-default">Welcome</span> <span class="label label-default">Updates</span> <span class="label label-default">July</span>
-            </div>    
+          <div class="more label"><a v-bind:href=Webpage.url>More Detail</a></div> 
+          <div class="tags">
+            <span class="label label-default" style="margin-left: 2px; margin-right: 2px;" v-for="keyword in Webpage.keywords">{{keyword}} </span> 
+          </div>    
         </div> 
-        <div class="clearfix"></div>
-        <hr>
-        <h1>Article name second</h1>
-        <p>Sed interdum massa ac pretium faucibus. Integer semper euismod lorem faucibus molestie. Aenean luctus ut metus eget dignissim. Sed tincidunt augue non elementum pharetra. Suspendisse non feugiat urna. Etiam egestas neque euismod neque sollicitudin consectetur. Fusce facilisis augue a velit porta scelerisque. Sed mattis justo sapien. Sed ultrices lectus diam, id vestibulum ante finibus a. </p>
-        <div>
-            <div class="more label"><a href="#">More</a></div> 
-            <div class="tags">
-                <span class="label label-default">Welcome</span> <span class="label label-default">Updates</span> <span class="label label-default">July</span>
-            </div> 
-        </div>     
-        <hr>
         <div class="clearfix"></div>
       </div>
     </div>

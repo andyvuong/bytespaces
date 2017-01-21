@@ -29,6 +29,7 @@ app.use(bodyParser.json());
 
 require('./auth/passport')(passport);
 require('./routing')(app, router, passport);
+require('./analysis/analysis')();
 
 app.use(express.static(__dirname + '/../frontend'));
 
