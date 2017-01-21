@@ -7,10 +7,16 @@
   "browser_action": {
     "default_popup": "popup/popup.html"
   },
+
+  "background": {
+    "scripts": ["background/background.js"]
+  },
   
   "permissions": [
     "http://localhost/*",
-    "http://bytespaces/*"
+    "http://bytespaces/*",
+    "contextMenus",
+    "activeTab"
   ],
 
   "web_accessible_resources": [
