@@ -78,7 +78,10 @@ module.exports = function(router) {
               Comment.update({ _id: body.commentID }, {"$push": { likes: body.username }, "$inc" : {likeCount: 1}}, function(err, UpdatedComment) {
                 if (err) return handleError(err);
                 else {
-                  return res.status(200).json({ "message": "Like Success", "data": UpdatedComment});
+                  User.findOneAndUpdate({ username: body.username }, {"$inc" : {points: 1}}, function(err, UpdatedUser){
+                    if (err) return handleError(err);
+                    else return res.status(200).json({ "message": "Like Success", "data": UpdatedComment});
+                  });
                 }
               });
             }
@@ -86,7 +89,10 @@ module.exports = function(router) {
               Comment.update({ _id: body.commentID },{"$pull": { likes: body.username }, "$inc" : {likeCount: -1} }, function(err, UpdatedComment) {
                 if (err) return handleError(err);
                 else {
-                  return res.status(200).json({ "message": "Unlike Success", "data": UpdatedComment});
+                  User.findOneAndUpdate({ username: body.username }, {"$inc" : {points: -1}}, function(err, UpdatedUser){
+                    if (err) return handleError(err);
+                    else return res.status(200).json({ "message": "Unlike Success", "data": UpdatedComment});
+                  });
                 }
               });
             }
@@ -94,7 +100,7 @@ module.exports = function(router) {
         }
       });
     }
-    
+
   });
   return router;
 }

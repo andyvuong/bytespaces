@@ -11,7 +11,9 @@ module.exports = function(router, passport) {
   });
 
   router.get('/users/profile', isLoggedIn, function(req, res) {
-    res.status(200).json({ user: req.user, message: "Welcome!" });
+    var profile = req.user;
+    profile.password = undefined;
+    res.status(200).json({ user: profile, message: "Welcome!" });
   });
 
   router.get('/users/logout', function(req, res) {
