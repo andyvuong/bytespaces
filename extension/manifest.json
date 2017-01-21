@@ -8,18 +8,26 @@
     "default_popup": "popup/popup.html"
   },
 
+  "content_scripts": [
+    {
+      "matches": ["*://*/*"], 
+      "js" : ["popup/jquery-2.2.4.min.js"],
+      "css" : ["background/bytespaces-comment.css"]
+    }
+  ],
+
   "background": {
-    "scripts": ["background/background.js"]
+    "scripts": ["popup/jquery-2.2.4.min.js", "background/background.js"]
   },
   
   "permissions": [
-    "http://localhost/*",
-    "http://bytespaces/*",
+    "*://*/*",
     "contextMenus",
-    "activeTab"
+    "activeTab",
+    "storage"
   ],
 
   "web_accessible_resources": [
-    "assets/*"
+    "background/backspaces-comment.css"
   ]
 }

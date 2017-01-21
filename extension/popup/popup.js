@@ -14,8 +14,10 @@ $( document ).ready(function() {
     //var url = 'http://bytespaces.com/api/users/login';
     var url = 'http://localhost:3000/api/users/login';
     post(url, function(data) {
-      $( "#pop-form, #err" ).hide(10, function() {
-        render(data);
+      chrome.storage.local.set({ "username": data.user.username }, function() {
+        $( "#pop-form, #err" ).hide(10, function() {
+          render(data);
+        });
       });
     }, function(data) {
       $('#err').append('Invalid login!');
@@ -27,8 +29,10 @@ $( document ).ready(function() {
     //var url = 'http://bytespaces.com/api/users/signup';
     var url = 'http://localhost:3000/api/users/signup';
     post(url, function(data) {
-      $( "#pop-form, #err" ).hide(10, function() {
-        render(data);
+      chrome.storage.local.set({ "username": data.user.username }, function() {
+        $( "#pop-form, #err" ).hide(10, function() {
+          render(data);
+        });
       });
     }, function(data) {
       $('#err').append('Invalid sign in!');

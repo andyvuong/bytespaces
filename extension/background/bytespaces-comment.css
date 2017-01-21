@@ -1,0 +1,26 @@
+.bytespaces-comment { 
+  width: 100px !important;
+  z-index: 10000;
+  position: relative;
+  display: inline-block;
+}
+
+.bytespaces-input {
+  width: 100%;
+  min-height: 80%;
+  z-index: 10000;
+  resize: vertical;
+  overflow: auto;
+  border: 2px solid #033649;
+  margin: auto;
+}
+
+.bytespaces-button { 
+  width: 100%;
+  min-height: 20%;
+  z-index: 10000;
+  display: block;
+  text-align: center;
+  border: 2px solid #033649;
+  margin-left: 4px;
+} 
