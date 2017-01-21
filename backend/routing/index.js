@@ -1,3 +1,4 @@
-module.exports = function(app, router) {
-  app.use('/api', require('./test')(router));
+module.exports = function(app, router, passport) {
+  app.use('/api', require('./user.js')(router,passport));
+  app.use('/api', require('./comment.js')(router));
 };
