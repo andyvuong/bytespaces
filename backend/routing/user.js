@@ -3,11 +3,15 @@ var User = require('../models/user');
 module.exports = function(router, passport) {
 
   router.post('/users/signup', passport.authenticate('local-signup'), function(req, res) {
-    res.status(200).json({ user: req.user.username });
+    var profile = req.user;
+    profile.password = undefined;
+    res.status(200).json({ user: profile });
   });
 
   router.post('/users/login', passport.authenticate('local-login'), function(req, res) {
-    res.status(200).json({ user: req.user.username });
+    var profile = req.user;
+    profile.password = undefined;
+    res.status(200).json({ user: profile });
   });
 
   router.get('/users/profile', isLoggedIn, function(req, res) {

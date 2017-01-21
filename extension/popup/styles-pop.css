@@ -34,6 +34,7 @@ a {
 
 #addition {
   display: none;
+  text-align: center;
 }
 
 #err {

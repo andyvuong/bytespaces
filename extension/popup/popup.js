@@ -39,6 +39,8 @@ $( document ).ready(function() {
 
 function render(data) {
   $('#addition').show();
+  $('#addition h3').text('Welcome ' + data.user.username);
+  $('#addition h5').text('Your Points: ' + data.user.points);
 }
 
 function post(url, scb, fcb) {
