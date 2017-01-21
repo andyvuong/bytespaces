@@ -24,11 +24,6 @@ chrome.runtime.onMessage.addListener(
 chrome.contextMenus.create({title: "Bytespaces: Comment", 
   contexts:["selection"],
   onclick: function(info, tab) { 
-    chrome.tabs.insertCSS(null, 
-    {   
-      file: "bytespaces-comment.css"
-    }, function() {
-      chrome.tabs.executeScript(null, { file: 'background/selection.js' });
-    });
+    chrome.tabs.executeScript(null, { file: 'background/selection.js' });
   }
 });
