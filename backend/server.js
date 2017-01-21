@@ -29,8 +29,9 @@ app.use(bodyParser.json());
 
 require('./auth/passport')(passport);
 require('./routing')(app, router, passport);
+require('./analysis/analysis')();
 
-app.use(express.static(__dirname + '../frontend'));
+app.use(express.static(__dirname + '/../frontend'));
 
 var port = process.env.PORT || 3000;
 console.log("Express server running on " + port);

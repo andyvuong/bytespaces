@@ -1,15 +1,17 @@
 var User = require('../models/user');
 var Comment = require('../models/comment');
+var Webpage = require('../models/webpage');
 
 module.exports = function(router) {
 
   var commentRoute = router.route('/comment');
+  var trendingRoute = router.route('/trending');
   var socialLikeRoute = router.route('/social/like');
 
   commentRoute.post(function(req, res) {
     var body = req.body;
     // validation
-    if (body.username == null || body.content == null, body.url == null){
+    if (body.username == null || body.content == null || body.url == null){
       return res.status(500).json({
         "message": "Validation Error: Both name, content, and url are required! ",
         "data": []
@@ -21,20 +23,33 @@ module.exports = function(router) {
       else if (CommentUser == null){
         return res.status(500).json({"message": "This user does not exists", "data": [] });
       }
-      // Create object for comment
+
+      // Create Webpage object and save it
+      NewWebpage = new Webpage();
+      NewWebpage.url = body.url;
+      NewWebpage.title = body.title || 'No Title';
+      Webpage.findOne({ url: body.url }, function(err, FindWebpage){
+        if (FindWebpage == null) {
+          NewWebpage.save(function(err, AddedWebpage) {
+            console.log('New Page has added'+ AddedWebpage);
+          });
+        }
+      });
+      
+      // Create object for comment and webpage and Save it
       NewComment = new Comment();
       NewComment.username = body.username;
       NewComment.url = body.url;
       NewComment.content = body.content;
-      //Save comment
       NewComment.save(function(err, AddedComment) {
         if (err) return handleError(err);
-        else return res.status(201).json({ "message": 'Comment added', "data": AddedComment}); 
+        else return res.status(201).json({ "message": 'Comment added', "data": AddedComment});
       });
       
     });
   });
 
+  // For each webpage
   commentRoute.get(function(req,res){
     var query = req.query;
     Comment.find({ url: query.url }, function(err, Comments){
@@ -43,6 +58,15 @@ module.exports = function(router) {
     });
   });
 
+  // For Dashbaord
+  trendingRoute.get(function(req,res){
+    Webpage.find({ commentCount: { $gt: 5} }).sort('date').limit(25).exec(function(err, pages){
+      if (err) return handleError(err);
+      else return res.status(201).json({ "message": 'Query Trending', "data": pages});       
+    });
+  });
+
+  // Liking Comment
   socialLikeRoute.post(function(req, res) {
     var body = req.body;
 
