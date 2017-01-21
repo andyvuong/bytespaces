@@ -1,0 +1,34 @@
+html {
+  width: 300px;
+}
+
+body {
+  width: 300px;
+}
+
+a {
+  text-decoration: none;
+}
+
+.row {
+  margin-left: 3%;
+  margin-right: 4%;
+  margin-bottom: 2%;
+}
+
+.form {
+  width: 75% !important;
+}
+
+.form-group {
+  text-align: center;
+}
+
+.btn {
+  text-align: center; 
+}
+
+#dashboard-button {
+  text-align: center;
+}
+
