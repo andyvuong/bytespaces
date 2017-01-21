@@ -8,7 +8,8 @@ var CommentSchema   = new mongoose.Schema({
   content: String,
   date: { type: Date, default: Date.now },
   location: { x: Number, y: Number},
-  points: [String],
+  likes: [String],
+  likeCount: { type: Number, default: 0}
 });
 
 // Export the Mongoose model

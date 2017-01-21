@@ -1,9 +1,8 @@
 var User = require('../models/user');
-var Comment = require('../models/comment');
 
 module.exports = function(router, passport) {
 
-	router.post('/users/signup', passport.authenticate('local-signup'), function(req, res) {
+  router.post('/users/signup', passport.authenticate('local-signup'), function(req, res) {
     res.status(200).json({ user: req.user.username });
   });
 
