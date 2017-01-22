@@ -17,8 +17,8 @@ var allowCrossDomain = function(req, res, next) {
   next();
 };
 
-// mongoose.connect(settings.mongodb_url);
-mongoose.connect(process.env.MONGODB_URI);
+ mongoose.connect(settings.mongodb_url);
+//mongoose.connect(process.env.MONGODB_URI);
 
 app.use(session({ secret: 'passport' }));
 

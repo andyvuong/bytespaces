@@ -1,29 +1,4 @@
-$.get(chrome.extension.getURL('views/overlay.html'), function(data) {
-    $(data).appendTo('body');
-    $('#comment-list').empty();
-    openNav();
-    $( "#close-overlay" ).click(function(event) {
-      event.stopPropagation();
-      document.getElementById("mySidenav").style.width = "0";
-      document.body.style.marginLeft= "0";
-    });
-    
-    $( "#bytespaces-butt" ).unbind().click(function(event) {
-      event.stopPropagation();
-      sendRequest();  
-    });
-
-    chrome.runtime.sendMessage({type: 'get', url: window.location.href}, function(response) {
-      console.log(response);
-      var data = response.data;
-      for (var i = 0; i < data.length; i++ ) {
-        console.log(data[i]);
-        var d = new Date(Date.parse(data[i].date));
-        var comment = '<strong>' + data[i].username + '</strong> said... <br>' + data[i].content + '<br><small class="date">' + d.toString() + '</small>';
-        $('#comment-list').append('<li>' + comment + '</li>');
-      }
-    });
-});
+$.get(chrome.extension.getURL('views/overlay.html'), getData);
 
 function openNav() {
   document.getElementById("mySidenav").style.width = "23%";
@@ -46,7 +21,43 @@ function sendRequest() {
       };
       chrome.runtime.sendMessage({request: JSON.stringify(data)}, function(response) {
         $('#bytespaces-area').val('');
+        $('#comment-list').empty();
+        chrome.runtime.sendMessage({type: 'get', url: window.location.href}, function(response) {
+          var data = response.data;
+          for (var i = 0; i < data.length; i++ ) {
+            var d = new Date(Date.parse(data[i].date));
+            var comment = '<strong>' + data[i].username + '</strong> said... <br>' + data[i].content + '<br><small class="date">' + d.toString() + '</small>';
+            $('#comment-list').append('<li>' + comment + '</li>');
+          }
+        });
       });
     });    
   }
+}
+
+function getData(data) {
+  $(data).appendTo('body');
+  $('#comment-list').empty();
+  openNav();
+  $( "#close-overlay" ).click(function(event) {
+    event.stopPropagation();
+    document.getElementById("mySidenav").style.width = "0";
+    document.body.style.marginLeft = "0";
+  });
+  
+  $( "#bytespaces-butt" ).unbind().click(function(event) {
+    event.stopPropagation();
+    sendRequest();  
+  });
+
+  chrome.runtime.sendMessage({type: 'get', url: window.location.href}, function(response) {
+    console.log(response);
+    var data = response.data;
+    for (var i = 0; i < data.length; i++ ) {
+      console.log(data[i]);
+      var d = new Date(Date.parse(data[i].date));
+      var comment = '<strong>' + data[i].username + '</strong> said... <br>' + data[i].content + '<br><small class="date">' + d.toString() + '</small>';
+      $('#comment-list').append('<li>' + comment + '</li>');
+    }
+  });
 }
