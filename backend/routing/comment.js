@@ -49,6 +49,7 @@ module.exports = function(router) {
       NewComment.url = body.url;
       NewComment.content = body.content;
       NewComment.location = {x: body.x, y: body.y};
+      NewComment.gridIndex = body.gridIndex;
       NewComment.save(function(err, AddedComment) {
         if (err) return handleError(err);
         else return res.status(201).json({ "message": 'Comment added', "data": AddedComment});

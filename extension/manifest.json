@@ -28,6 +28,7 @@
   ],
 
   "web_accessible_resources": [
-    "background/backspaces-comment.css"
+    "background/backspaces-comment.css",
+    "views/overlay.html"
   ]
 }
