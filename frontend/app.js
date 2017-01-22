@@ -10,14 +10,14 @@ new Vue({
   },
 
   mounted: function() {
-    this.fetchEvents();
+    this.fetchTrending();
   },
 
   // Methods we want to use in our application are registered here
   methods: {
 
     // We dedicate a method to retrieving and setting some data
-    fetchEvents: function() {
+    fetchTrending: function() {
       var vm = this;
       $.ajax({
         url: 'http://localhost:3000/api/trending',

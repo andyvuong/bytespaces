@@ -5,6 +5,8 @@ var mongoose = require('mongoose');
 var WebpageSchema   = new mongoose.Schema({
   url: String,
   title: String,
+  description: String,
+  image: String,
   date: { type: Date, default: Date.now },
   commentCount: { type: Number, default: 0, min: 0},
   keywords: [String],

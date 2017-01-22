@@ -1,6 +1,7 @@
 var User = require('../models/user');
 var Comment = require('../models/comment');
 var Webpage = require('../models/webpage');
+var Metascraper = require('metascraper');
 
 module.exports = function(router) {
 
@@ -25,13 +26,19 @@ module.exports = function(router) {
       }
 
       // Create Webpage object and save it
-      NewWebpage = new Webpage();
-      NewWebpage.url = body.url;
-      NewWebpage.title = body.title || 'No Title';
       Webpage.findOne({ url: body.url }, function(err, FindWebpage){
         if (FindWebpage == null) {
-          NewWebpage.save(function(err, AddedWebpage) {
-            console.log('New Page has added'+ AddedWebpage);
+          NewWebpage = new Webpage();
+          NewWebpage.url = body.url;
+
+          Metascraper.scrapeUrl(body.url).then((metadata) => {
+            NewWebpage.description = metadata.description;
+            NewWebpage.image =  metadata.image;
+            NewWebpage.title = metadata.title || body.title || 'No Title';
+
+            NewWebpage.save(function(err, AddedWebpage) {
+              console.log('New Page has added'+ AddedWebpage);
+            });
           });
         }
       });
@@ -41,6 +48,7 @@ module.exports = function(router) {
       NewComment.username = body.username;
       NewComment.url = body.url;
       NewComment.content = body.content;
+      NewComment.location = {x: body.x, y: body.y};
       NewComment.save(function(err, AddedComment) {
         if (err) return handleError(err);
         else return res.status(201).json({ "message": 'Comment added', "data": AddedComment});
@@ -60,7 +68,7 @@ module.exports = function(router) {
 
   // For Dashbaord
   trendingRoute.get(function(req,res){
-    Webpage.find({ commentCount: { $gt: 5} }).sort('date').limit(25).exec(function(err, pages){
+    Webpage.find({ commentCount: { $gt: -1} }).sort('date').limit(25).exec(function(err, pages){
       if (err) return handleError(err);
       else return res.status(201).json({ "message": 'Query Trending', "data": pages});       
     });
