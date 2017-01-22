@@ -12,13 +12,14 @@ $.get(chrome.extension.getURL('views/overlay.html'), function(data) {
       event.stopPropagation();
       sendRequest();  
     });
-    
+
     chrome.runtime.sendMessage({type: 'get', url: window.location.href}, function(response) {
       console.log(response);
       var data = response.data;
       for (var i = 0; i < data.length; i++ ) {
         console.log(data[i]);
-        var comment = data[i].username + ' said... <br>' + data[i].content + '';
+        var d = new Date(Date.parse(data[i].date));
+        var comment = '<strong>' + data[i].username + '</strong> said... <br>' + data[i].content + '<br><small class="date">' + d.toDateString() + '</small>';
         $('#comment-list').append('<li>' + comment + '</li>');
       }
     });

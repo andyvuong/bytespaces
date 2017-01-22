@@ -18,11 +18,19 @@
 .bytespaces-button { 
   width: 85%;
   text-align: center;
-  border: 2px solid #033649;
+  border: 2px solid #248F8D;
   display: block;
   margin-left: auto;
   margin-right: auto;
+  background-color: #248F8D;
+  box-shadow: none;
 } 
+
+.bytespaces-button:hover {
+  background-color: #248F8D;
+  opacity: 87%;
+  box-shadow: none;
+}
 
 .bytespaces-overlay {
   position: absolute;
@@ -48,7 +56,7 @@ body {
     background-color: #242729;
     overflow-x: hidden;
     transition: 0.5s;
-    padding-top: 60px;
+    padding-top: 50px; 
 
 }
 .sidenav li {
@@ -67,7 +75,7 @@ body {
     right: 5%;
     font-size: 36px;
     margin-left: 50px;
-    margin-top: 25px;
+    margin-top: 18px;
 }
 
 .sidenav textarea {
@@ -86,5 +94,15 @@ body {
 }
 
 #comment-list {
+  height: 100%;
   overflow-y: auto;
+}
+
+.date {
+  color: #EFF3CD;
+  font-size: 0.8em !important;
+}
+
+.dbtn {
+  color: #248F8D !important;
 }
