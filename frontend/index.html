@@ -15,7 +15,8 @@
   <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </head>
-<body>
+
+<body ng-app="bytespaces">
 
   <!-- navigation bar -->
   <nav class="navbar navbar-default">
@@ -25,8 +26,8 @@
   </nav>
 
   <!-- main body of our application -->
-  <div class="container" id="WebpageTrends">
-    <div class="col-sm-3 col-sm-offset-1 col-sm-push-8">
+  <div class="container" ng-controller="DashboardController">
+<!--     <div class="col-sm-3 col-sm-offset-1 col-sm-push-8">
       <div class="card hovercard">
         <div class="cardheader">
 
@@ -59,33 +60,83 @@
             </a>
         </div>
       </div>
-    </div>
-    <div class="col-sm-8 col-sm-pull-4">
-      <div class="trending" v-for="Webpage in Webpages">
-          <div class="row">
-            <div class="col-sm-9">
-              <h3 class="pull-left">{{Webpage.title}} <small>({{Webpage.commentCount}} comments)</small></h3>
-            </div>
-            <div class="col-sm-3">
-              <h4 class="pull-right">
-              <small><em>{{Webpage.date}}</em></small>
-              </h4>
-            </div>
+    </div> -->
+
+     <!--  <div class="col-md-6 col-md-offset-3">
+        <div class="input-group">
+          <input type="text" class="form-control" aria-label="...">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button">Search</button>
+          </span>
         </div>
-        <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dictum ex eget porttitor sollicitudin. Morbi cursus tempor placerat. Pellentesque suscipit tortor in orci pretium, ac facilisis ex pretium. Fusce hendrerit orci diam, vitae tristique quam porttitor eu. Donec ligula orci, ultricies in sagittis non, porta sed lorem. Aenean interdum posuere mattis. Curabitur dignissim dictum quam, vitae malesuada velit tristique a. </p> -->
-        <div>
-          <div class="more label"><a v-bind:href=Webpage.url>More Detail</a></div> 
-          <div class="tags">
-            <span class="label label-default" style="margin-left: 2px; margin-right: 2px;" v-for="keyword in Webpage.keywords">{{keyword}} </span> 
-          </div>    
-        </div> 
+
+        <div class="input-group">
+          <select class="form-control">
+            <option>Mustard</option>
+            <option>Ketchup</option>
+            <option>Relish</option>
+          </select>
+        </div>
+      </div> -->
+
+
+    <div class="container search">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="input-group" id="adv-search">
+            <input type="text" class="form-control" ng-model="query.term" placeholder="Search for term" />
+            <div class="input-group-btn">
+              <div class="btn-group" role="group">
+                <div class="dropdown dropdown-lg">
+                  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+                  <div class="dropdown-menu dropdown-menu-right" role="menu">
+                    <form class="form-horizontal" role="form">
+                      <div class="form-group">
+                        <label for="filter">Sort by</label>
+                        <select class="form-control" ng-model="query.type">
+                          <option value="commentCount">Popularity</option>
+                          <option value="date">Date</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label class="radio-inline"><input type="radio" ng-model="query.order" value="1">Ascending</label>
+                        <label class="radio-inline"><input type="radio" ng-model="query.order" value="-1">Descending</label>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                <button type="button" ng-click="search(query)" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-sm-12">
+      <div class="trending" ng-repeat="Webpage in Webpages">
+        <div class="row">
+          <div class="col-sm-12">
+            <h3 class="pull-left"> 
+              <span class="CommentCountTag label label-primary">{{Webpage.commentCount}}</span> {{Webpage.title}}
+              <small><em>{{Webpage.date | date:'MM/dd/yyyy @ h:mma'}}</em></small>
+            </h3>
+          </div>
+        </div>
+
+        <p>{{Webpage.description}}<a ng-href={{Webpage.url}}><b>more detail</b></a></p>
+        
+        <span class="tag label label-success" ng-repeat="keyword in Webpage.keywords | limitTo:10" >{{keyword}} </span>
+
+        <hr>
         <div class="clearfix"></div>
       </div>
     </div>
   </div>
 
   <!-- JS -->
-  <script src="https://unpkg.com/vue@2.1.10/dist/vue.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

@@ -68,10 +68,19 @@ module.exports = function(router) {
 
   // For Dashbaord
   trendingRoute.get(function(req,res){
-    Webpage.find({ commentCount: { $gt: -1} }).sort('date').limit(25).exec(function(err, pages){
-      if (err) return handleError(err);
-      else return res.status(201).json({ "message": 'Query Trending', "data": pages});       
-    });
+    var query = req.query;
+    if (query.type == 'date'){
+      Webpage.find({"title" : {$regex : ".*"+query.term+".*"}}).sort({date: query.order}).limit(25).exec(function(err, pages){
+        if (err) return handleError(err);
+        else return res.status(201).json({ "message": 'Query Trending', "data": pages});       
+      });
+    }
+    else{
+      Webpage.find({}).sort({commentCount: query.order}).limit(25).exec(function(err, pages){
+        if (err) return handleError(err);
+        else return res.status(201).json({ "message": 'Query Trending', "data": pages});       
+      });
+    }
   });
 
   // Liking Comment

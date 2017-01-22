@@ -1,35 +1,31 @@
-new Vue({
+var app = angular.module('bytespaces', []);
 
-  // We want to target the div with an id of 'events'
-  el: '#WebpageTrends',
-
-  // Here we can register any values or collections that hold data
-  // for the application
-  data: {
-    Webpages: []
-  },
-
-  mounted: function() {
-    this.fetchTrending();
-  },
-
-  // Methods we want to use in our application are registered here
-  methods: {
-
-    // We dedicate a method to retrieving and setting some data
-    fetchTrending: function() {
-      var vm = this;
-      $.ajax({
-        url: 'http://localhost:3000/api/trending',
-        type: 'GET',
-        xhrFields: {
-         withCredentials: true
-        },
-        success: function(Webpages){
-          vm.Webpages = Webpages.data;
-        }
-      });
+app.factory('API', function($http) {
+  return {
+    getTrending : function(type, order, term){
+      return $http.get('http://localhost:3000/api/trending', {params: {'type': type, 'order': order, 'term': term}});
     }
   }
-
 });
+
+app.controller('DashboardController', ['$window','$scope', 'API', function($window, $scope, API){
+  $scope.Webpages = [];
+  $scope.query = { 'type': 'date', 'order': '1', 'term': '' };
+  getTrending($scope.query);
+
+  function getTrending(query){
+    API.getTrending(query.type, query.order, query.term)
+      .then(function(response){
+        $scope.Webpages = response.data.data;
+        $scope.status = true;
+      }, function(response){
+        $scope.status = false;
+      });
+  }
+
+
+  $scope.search = function(query){
+    getTrending(query);
+  };
+
+}]);

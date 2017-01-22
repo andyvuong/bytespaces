@@ -47,7 +47,7 @@ module.exports = function() {
     });
   }
 
-  var minutes = 1.5, the_interval = minutes * 60 * 1000;
+  var minutes = 5, the_interval = minutes * 60 * 1000;
   setInterval(function() {
     console.log("analysis - 1 minutes");
     Webpage.find({}, function(err, Webpages){
