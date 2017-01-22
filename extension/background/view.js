@@ -1,14 +1,26 @@
 $.get(chrome.extension.getURL('views/overlay.html'), function(data) {
     $(data).appendTo('body');
+    $('#comment-list').empty();
     openNav();
-    $( "#close-overlay" ).click(function() {
+    $( "#close-overlay" ).click(function(event) {
+      event.stopPropagation();
       document.getElementById("mySidenav").style.width = "0";
       document.body.style.marginLeft= "0";
     });
-    document.getElementById("bytespaces-butt").addEventListener("click", sendRequest, false);
-
+    
+    $( "#bytespaces-butt" ).unbind().click(function(event) {
+      event.stopPropagation();
+      sendRequest();  
+    });
+    
     chrome.runtime.sendMessage({type: 'get', url: window.location.href}, function(response) {
       console.log(response);
+      var data = response.data;
+      for (var i = 0; i < data.length; i++ ) {
+        console.log(data[i]);
+        var comment = data[i].username + ' said... <br>' + data[i].content + '';
+        $('#comment-list').append('<li>' + comment + '</li>');
+      }
     });
 });
 
@@ -18,7 +30,6 @@ function openNav() {
 }
 
 function sendRequest() {
-  console.log(12);
   if ( $('#bytespaces-area').val() && $('#bytespaces-area').val().trim().length > 0 ) {
     chrome.storage.local.get('username', function(items) {
       var name = items.username;
