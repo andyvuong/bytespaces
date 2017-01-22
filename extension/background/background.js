@@ -39,8 +39,8 @@ chrome.runtime.onMessage.addListener(
     return true;
 });
 
-chrome.contextMenus.create({title: "Comment", 
-  contexts:["selection"],
+chrome.contextMenus.create({title: "byte", 
+  contexts:["all", "selection"],
   onclick: function(info, tab) { 
     chrome.tabs.executeScript(null, { file: 'background/view.js' });
   }

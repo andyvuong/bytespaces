@@ -19,15 +19,15 @@ $.get(chrome.extension.getURL('views/overlay.html'), function(data) {
       for (var i = 0; i < data.length; i++ ) {
         console.log(data[i]);
         var d = new Date(Date.parse(data[i].date));
-        var comment = '<strong>' + data[i].username + '</strong> said... <br>' + data[i].content + '<br><small class="date">' + d.toDateString() + '</small>';
+        var comment = '<strong>' + data[i].username + '</strong> said... <br>' + data[i].content + '<br><small class="date">' + d.toString() + '</small>';
         $('#comment-list').append('<li>' + comment + '</li>');
       }
     });
 });
 
 function openNav() {
-  document.getElementById("mySidenav").style.width = "250px";
-  document.body.style.marginLeft = "250px";
+  document.getElementById("mySidenav").style.width = "23%";
+  document.body.style.marginLeft = "23%";
 }
 
 function sendRequest() {
