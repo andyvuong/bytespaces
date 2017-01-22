@@ -2,7 +2,8 @@ chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     var url = 'http://localhost:3000/api/comment';
     //var url = 'http://bytespaces/api/comment';
-    if ( request.type = 'get' ) {
+    if ( request.type === 'get' ) {
+      console.log('get');
       $.ajax({
         url: url, 
         data: { 
@@ -13,7 +14,7 @@ chrome.runtime.onMessage.addListener(
          withCredentials: true
         },
         success: function(data){
-          sendResponse({status: true});
+          sendResponse({status: true, data: data.data });
         }
       });
     } else {
@@ -46,7 +47,7 @@ chrome.contextMenus.create({title: "comment",
 });
 
 chrome.contextMenus.create({title: "View", 
-  contexts:["all"],
+  contexts:["selection"],
   onclick: function(info, tab) { 
     chrome.tabs.executeScript(null, { file: 'background/view.js' });
   }

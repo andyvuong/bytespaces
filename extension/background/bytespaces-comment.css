@@ -24,3 +24,12 @@
   border: 2px solid #033649;
   margin-left: 4px;
 } 
+
+.bytespaces-overlay {
+  position: absolute;
+  min-width: 100%;
+  color: #555152;
+  opacity: 50%;
+  background: #555152;
+  z-index: 99999;
+}

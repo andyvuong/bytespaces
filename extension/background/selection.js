@@ -50,11 +50,13 @@ function sendRequest() {
       var pos = $('#bytespaces-box').position();
       var data = {
         username: name,
-        comment: $('#bytespaces-area').val(),
+        content: $('#bytespaces-area').val(),
         title: $('title').text(),
         url: window.location.href,
-        location: { x: pos.left, y: post.top }
-      }
+        x: pos.left,
+        y: pos.top,
+        gridIndex: computeGridIndex(pos.top)
+      };
 
       chrome.runtime.sendMessage({request: JSON.stringify(data)}, function(response) {
         $('#bytespaces-box').remove();
@@ -62,3 +64,18 @@ function sendRequest() {
     });    
   }
 }
+
+function computeGridIndex(x) {
+  var smallest = 0;
+  var largest = $(document).height(); 
+  var min = 0;
+  var max = 12;
+  var val = Math.round(min + (max - min) / (largest - smallest) * (x - smallest));
+  if ( val > max ) {
+    return max;
+  }
+  return val;
+}
+
+
+
