@@ -42,16 +42,18 @@ function render() {
 }
 
 function sendRequest() {
-  if ( $('#bytespaces-area').val() && $('#bytespaces-area').val().length === 0 ) {
+  if ( $('#bytespaces-area').val() && $('#bytespaces-area').val().trim().length === 0 ) {
     $('#bytespaces-box').remove();
   } else {
     chrome.storage.local.get('username', function(items) {
       var name = items.username;
+      var pos = $('#bytespaces-box').position();
       var data = {
         username: name,
         comment: $('#bytespaces-area').val(),
         title: $('title').text(),
-        url: window.location.href
+        url: window.location.href,
+        location: { x: pos.left, y: post.top }
       }
 
       chrome.runtime.sendMessage({request: JSON.stringify(data)}, function(response) {
