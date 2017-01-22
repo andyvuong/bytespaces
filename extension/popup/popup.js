@@ -20,7 +20,7 @@ $( document ).ready(function() {
         });
       });
     }, function(data) {
-      $('#err').append('Invalid login!');
+      $('#err').text('Invalid login!');
     });
   });
 
@@ -35,7 +35,7 @@ $( document ).ready(function() {
         });
       });
     }, function(data) {
-      $('#err').append('Invalid sign in!');
+      $('#err').text('Invalid sign in!');
     });
   });
 
@@ -43,8 +43,8 @@ $( document ).ready(function() {
 
 function render(data) {
   $('#addition').show();
-  $('#addition h3').text('Welcome ' + data.user.username);
-  $('#addition h5').text('Your Points: ' + data.user.points);
+  $('#username').text('Welcome ' + data.user.username);
+  $('#points').text('Your Points: ' + data.user.points);
 }
 
 function post(url, scb, fcb) {

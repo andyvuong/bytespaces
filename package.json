@@ -15,8 +15,8 @@
     "natural": "^0.4.0",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
+    "request": "^2.79.0",
     "stopwords": "0.0.5",
-    "summarize": "^1.5.0",
-    "summarizer": "^1.0.0"
+    "summarize": "^1.5.0"
   }
 }

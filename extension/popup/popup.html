@@ -8,29 +8,48 @@
     <title>bytespaces-hello</title>
   </head>
   <body>
-    <div class="row">
-      <h3 id="dashboard-button"><a href="http://bytespaces.com">Go: Bytespaces Dashboard</a><h3>
-    </div>
     <div class="row" id="pop-form">
+      <h3 id="dashboard-button"><a href="http://bytespaces.com">Bytespaces</a><h3>
       <form id="form-bs">
         <div class="form-group">
-          <label for="user">Username</label>
+          <label for="user"><h4>Username</h4></label>
           <input id="user" name="username" type="email" class="form-control" placeholder="Username">
         </div>
         <div class="form-group">
-          <label for="pass">Password</label>
+          <label for="pass"><h4>Password</h4></label>
           <input id="pass" name="password" type="password" class="form-control" placeholder="Password">
         </div>
-        <button id="signin" type="submit" class="btn btn-success">Sign In</button>
-        <button id="signup" type="submit" class="btn btn-warning">Make Account</button>
+        <div class="pull-right">
+          <button id="signup" type="submit" class="btn btn-warning ">Create Account</button>
+          <button id="signin" type="submit" class="btn btn-success ">Sign In</button>
+        </div>
       </form>
     </div>
-    <div class="row" id="err">
+    <div class="row">
+      <p id="err"></p>
     </div>
     <div class="row" id="addition">
-      <h3></h3>
-      <h5></h5>
-      <button type="submit" class="btn btn-primary">Make Post</button>
-    </div>
+      <a href="http://localhost:3000">
+        <div class="col-sm-3 col-sm-offset-1 col-sm-push-8">
+          <div class="card hovercard">
+            <div class="cardheader">
+
+            </div>
+            <div class="avatar">
+              <img alt="" src="http://www.tempshstimes.com/static//img/empty_avatar_256x256.png">
+            </div>
+            <div class="info">
+              <div class="title">
+                <h4 id="username"></h4>
+              </div>
+              <div class="desc">
+                <h5 id="points"></h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div> 
+
   </body>
 </html>
