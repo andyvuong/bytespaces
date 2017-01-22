@@ -1,9 +1,13 @@
 var s = document.getSelection();
 var oRange = s.getRangeAt(0);
 var objectRect = oRange.getBoundingClientRect();
-render();
+
+if ( $('#bytespaces-area').length < 1 ) {
+  render();
+}
 
 function render() {
+  // magic nums for now sorry
   var commentBox = document.createElement("div"); 
   commentBox.setAttribute("id", "bytespaces-box");
   var commentArea = document.createElement("textarea"); 
@@ -26,8 +30,9 @@ function render() {
   scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
   commentBox.style.position = 'absolute';
+  var offsetLeft = 100; // should align left of comment s.t right is at start of bounding
   commentBox.style.top = objectRect.top +  scrollTop + "px";
-  commentBox.style.left = objectRect.left + scrollLeft + "px";
+  commentBox.style.left = objectRect.left + scrollLeft - offsetLeft +"px";
 
   document.getElementById("bytespaces-box").className = "bytespaces-comment";
   document.getElementById("bytespaces-area").className = "bytespaces-input";
@@ -37,16 +42,18 @@ function render() {
 }
 
 function sendRequest() {
-  if ( $('#bytespaces-area').val() && $('#bytespaces-area').val().length === 0 ) {
+  if ( $('#bytespaces-area').val() && $('#bytespaces-area').val().trim().length === 0 ) {
     $('#bytespaces-box').remove();
   } else {
     chrome.storage.local.get('username', function(items) {
       var name = items.username;
+      var pos = $('#bytespaces-box').position();
       var data = {
         username: name,
         comment: $('#bytespaces-area').val(),
         title: $('title').text(),
-        url: window.location.href
+        url: window.location.href,
+        location: { x: pos.left, y: post.top }
       }
 
       chrome.runtime.sendMessage({request: JSON.stringify(data)}, function(response) {
