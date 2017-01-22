@@ -3,7 +3,7 @@ var app = angular.module('bytespaces', []);
 app.factory('API', function($http) {
   return {
     getTrending : function(type, order, term){
-      return $http.get('http://localhost:3000/api/trending', {params: {'type': type, 'order': order, 'term': term}});
+      return $http.get('http://www.bytespaces.com/api/trending', {params: {'type': type, 'order': order, 'term': term}});
     }
   }
 });
